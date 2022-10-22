@@ -14,5 +14,9 @@ public class App {
 
         heap.show();
 
+        heap.poll();
+
+        heap.show();
+
     }
 }
