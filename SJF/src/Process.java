@@ -1,5 +1,4 @@
 import java.util.Random;
-
 public class Process {
   private int id, executionTime;
   private String name;
