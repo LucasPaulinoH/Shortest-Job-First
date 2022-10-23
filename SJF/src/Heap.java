@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Heap {
-  private ArrayList<Process> processes;
+  public ArrayList<Process> processes;
 
   public Heap() {
     processes = new ArrayList<Process>();
@@ -34,7 +34,7 @@ public class Heap {
 
     for (int i = 0; i < this.processes.size(); i++) {
 
-      System.out.print("[" + i + "] " + this.processes.get(i).getExecutionTime() + " ");
+      System.out.print("[" + processes.get(i).getName() + "] " + this.processes.get(i).getExecutionTime() + " ");
 
     }
 
@@ -56,7 +56,7 @@ public class Heap {
 
     int smallest = processIndex;
 
-    if (left > size() && processes.get(left).getExecutionTime() < processes.get(processIndex).getExecutionTime())
+    if (left < size() && processes.get(left).getExecutionTime() < processes.get(processIndex).getExecutionTime())
       smallest = left;
     if (right < size() && processes.get(right).getExecutionTime() < processes.get(smallest).getExecutionTime())
       smallest = right;
