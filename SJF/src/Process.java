@@ -38,4 +38,9 @@ public class Process {
     System.out
         .println("Oi, sou o processo {" + getId() + "}.\ntempo de execução restante: " + getExecutionTime() + ".\n");
   }
+
+  public void showFinalized(){
+    System.out.println("=======================\n[Processo " + getId()
+                        + " finalizado]\n=======================\n");
+  }
 }

@@ -1,14 +1,29 @@
 public class Scheduler {
     private int cpuTime = 3; // tempo de execução padrão dos processos na CPU
     private Heap heap;
+    //private Timer timer;
+    //private TimerTask task;
 
     public Scheduler() {
         this.heap = new Heap();
+        //this.timer = new Timer();
+        /*this.task = new TimerTask() {
+            @Override
+            public void run() {
+                int numberOfProcesses;
+                numberOfProcesses = heap.processes.size();
+                try {
+                    generateProcesses(numberOfProcesses * 2);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        };*/
     }
 
     public void generateProcesses(int number) throws InterruptedException {
         for (int i = 0; i < number; i++) {
-            heap.insert(new Process(i + 1));
+            heap.insert(new Process(heap.processes.size() + 1));
         }
         heap.show();
     }
@@ -38,9 +53,9 @@ public class Scheduler {
 
     /* MÉTODO DE EXECUÇÃO DO ESCALONADOR */
     public void runScheduler() throws InterruptedException {
-        generateProcesses(4); //cria os 4 processos iniciais
+        generateProcesses(4); // cria os 4 processos iniciais
+        // timer.scheduleAtFixedRate(task, 10000, 9000);
         while (heap.processes.isEmpty() != true) {
-            
             Process currentProcess = heap.poll(); // seleção do processo de maior prioridade
             runProcess(currentProcess); // executa o processo
             if (currentProcess.getExecutionTime() > 0) {
@@ -49,8 +64,7 @@ public class Scheduler {
                  */
                 heap.processes.add(currentProcess);
             } else {
-                System.out.println("=======================\n[Processo " + currentProcess.getId()
-                        + " finalizado]\n=======================\n");
+                currentProcess.showFinalized();
             }
         }
     }

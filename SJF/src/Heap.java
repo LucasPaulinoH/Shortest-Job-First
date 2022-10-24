@@ -34,14 +34,14 @@ public class Heap {
 
     for (int i = 0; i < this.processes.size(); i++) {
 
-      System.out.print("[" + processes.get(i).getId() + "] " + this.processes.get(i).getExecutionTime() + " ");
+      System.out.print("[" + processes.get(i).getId() + "] " + this.processes.get(i).getExecutionTime() + " \n");
 
     }
 
     System.out.println();
   }
   /* ============================================================= */
-  
+
   /* MÉTODO DE SUBIDA */
   private void moveProcessUp(int processIndex) {
     if (processIndex > 0
@@ -70,7 +70,7 @@ public class Heap {
 
   /* MÉTODO DE INSERÇÃO */
   public void insert(Process process) {
-    processes.add(process); 
+    processes.add(process);
     int index = size() - 1;
     moveProcessUp(index);
   }
@@ -91,5 +91,4 @@ public class Heap {
 
     return firstProcess;
   }
-
 }
