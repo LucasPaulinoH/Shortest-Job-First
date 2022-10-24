@@ -5,8 +5,8 @@ public class Process {
   private String name;
   private Random random = new Random();
 
-  public Process(String name) {
-    this.name = name;
+  public Process(int id) {
+    this.id = id;
     this.executionTime = random.nextInt(20) + 1; // gera aleatoriamente o tempo de execução
   }
 
@@ -35,10 +35,7 @@ public class Process {
   }
 
   public void showMessage() {
-    if (getExecutionTime() == 0) {
-      System.out.println("Processo " + getId() + " finalizado.\n");
-    }
     System.out
-        .println("Oi, sou o processo " + getName() + ".\ntempo de execução restante: " + getExecutionTime() + ".\n");
+        .println("Oi, sou o processo {" + getId() + "}.\ntempo de execução restante: " + getExecutionTime() + ".\n");
   }
 }

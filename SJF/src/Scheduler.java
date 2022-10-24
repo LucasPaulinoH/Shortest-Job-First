@@ -1,35 +1,34 @@
 public class Scheduler {
-    private static int TIME_OF_EXECUTION_CPU = 3;
+    private int cpuTime = 3; // tempo de execução padrão dos processos na CPU
     private Heap heap;
 
-    public Scheduler(Heap heap) {
-        this.heap = heap;
+    public Scheduler() {
+        this.heap = new Heap();
     }
 
-    public void runScheduler() {
-        while (!heap.processes.isEmpty()) {
-            Process currentProcess = heap.poll();
-            runProcess(currentProcess);
-            if (currentProcess.getExecutionTime() > 0) {
-                heap.processes.add(currentProcess);
-            }
+    public void generateProcesses(int number) throws InterruptedException {
+        for (int i = 0; i < number; i++) {
+            heap.insert(new Process(i + 1));
         }
+        heap.show();
     }
 
+    /* MÉTODO DE EXECUÇÃO DOS PROCESSOS */
     public void runProcess(Process process) {
         int timeOfExecutionLeft = process.getExecutionTime();
         int executeFor;
 
-        if (timeOfExecutionLeft < TIME_OF_EXECUTION_CPU)
+        if (timeOfExecutionLeft < cpuTime)
             executeFor = timeOfExecutionLeft;
         else
-            executeFor = TIME_OF_EXECUTION_CPU;
+            executeFor = cpuTime;
 
         try {
+            /* laço usado para executar cada processo por três segundos */
             for (int i = 0; i < executeFor; i++) {
                 process.showMessage();
+                process.setExecutionTime(process.getExecutionTime() - 1); // decrementa o tempo de execução restante
                 Thread.sleep(1000);
-                process.setExecutionTime(process.getExecutionTime() - 1);
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -37,4 +36,22 @@ public class Scheduler {
 
     }
 
+    /* MÉTODO DE EXECUÇÃO DO ESCALONADOR */
+    public void runScheduler() throws InterruptedException {
+        generateProcesses(4); //cria os 4 processos iniciais
+        while (heap.processes.isEmpty() != true) {
+            
+            Process currentProcess = heap.poll(); // seleção do processo de maior prioridade
+            runProcess(currentProcess); // executa o processo
+            if (currentProcess.getExecutionTime() > 0) {
+                /*
+                 * caso o processo não tenha terminado de executar, volta para a o fim da lista.
+                 */
+                heap.processes.add(currentProcess);
+            } else {
+                System.out.println("=======================\n[Processo " + currentProcess.getId()
+                        + " finalizado]\n=======================\n");
+            }
+        }
+    }
 }

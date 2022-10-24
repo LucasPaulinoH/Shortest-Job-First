@@ -34,7 +34,7 @@ public class Heap {
 
     for (int i = 0; i < this.processes.size(); i++) {
 
-      System.out.print("[" + processes.get(i).getName() + "] " + this.processes.get(i).getExecutionTime() + " ");
+      System.out.print("[" + processes.get(i).getId() + "] " + this.processes.get(i).getExecutionTime() + " ");
 
     }
 
@@ -42,6 +42,7 @@ public class Heap {
   }
   /* ============================================================= */
   
+  /* MÉTODO DE SUBIDA */
   private void moveProcessUp(int processIndex) {
     if (processIndex > 0
         && processes.get(parent(processIndex)).getExecutionTime() > processes.get(processIndex).getExecutionTime()) {
@@ -50,6 +51,7 @@ public class Heap {
     }
   }
 
+  /* MÉTODO DE DESCIDA */
   private void moveProcessDown(int processIndex) {
     int left = LEFT(processIndex);
     int right = RIGHT(processIndex);
@@ -66,12 +68,14 @@ public class Heap {
     }
   }
 
+  /* MÉTODO DE INSERÇÃO */
   public void insert(Process process) {
-    processes.add(process);
+    processes.add(process); 
     int index = size() - 1;
     moveProcessUp(index);
   }
 
+  /* MÉTODO DE REMOÇÃO DO ELEMENTO DE MAIOR PRIORIDADE */
   public Process poll() {
     if (size() == 0) {
       return null;
